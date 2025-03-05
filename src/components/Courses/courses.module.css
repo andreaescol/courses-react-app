@@ -1,0 +1,65 @@
+.container {
+  max-width: 80vw;
+  margin: 20px auto;
+}
+
+.coursesHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin: 60px auto 30px auto;
+}
+
+.courseCard {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 40px;
+  padding: 40px;
+  margin-bottom: 30px;
+
+  border-radius: 4px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-left: 7px solid black;
+  background-color: white;
+}
+
+.courseTitle {
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+}
+
+.courseDescription {
+  grid-column: 1 / 2;
+  margin: 0;
+}
+
+.courseDetails {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.courseDetailsText {
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+
+.courseDetailsText p {
+  margin: 3px;
+}
+
+.courseDetails button {
+  margin-top: auto;
+  align-self: flex-start;
+  width: auto;
+}
+
+.cardBtns {
+  display: flex;
+  gap: 2px;
+  justify-content: start;
+}
+
+.cardBtns button {
+  height: 100%;
+}

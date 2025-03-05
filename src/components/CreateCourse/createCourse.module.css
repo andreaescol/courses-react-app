@@ -1,0 +1,147 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 70vw;
+  margin: 100px auto;
+}
+
+.container h2 {
+  font-size: 40px;
+  margin: 0;
+}
+
+.container button {
+  align-self: flex-end;
+}
+
+/* Main Info Form */
+.formContainer {
+  background-color: white;
+  border-radius: 4px;
+  border: 2px solid #cfcfcf;
+  background-color: white;
+  padding: 2rem 3rem;
+  margin: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 16px;
+}
+
+.formContainer h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.formContainer label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.formContainer input,
+textarea {
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+.formContainer input {
+  height: 2.5rem;
+}
+
+.formContainer textarea {
+  height: 6rem;
+  width: 100%;
+}
+
+.formContainer input::placeholder,
+textarea::placeholder {
+  color: #cfcfcf;
+  padding: 0.5rem;
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Authors Section */
+.authorsContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.authorsContainer h3 {
+  margin-bottom: 16px;
+}
+
+.authorsCol {
+  flex: 3;
+}
+
+.courseAuthorsCol {
+  flex: 1;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inputCol {
+  flex: 2;
+  max-width: 300px;
+  padding-bottom: 20px;
+}
+
+.accessoryCol {
+  flex: 1;
+}
+
+.authorBtn {
+  border: none;
+  background-color: white;
+  padding-left: 10px;
+}
+
+.authorName {
+  font-size: 16px;
+}
+
+.authorsList {
+  min-height: 10rem;
+}
+
+/* Errors */
+.errors input {
+  border: 1px solid red;
+  margin-bottom: 0;
+}
+
+.errors textarea {
+  border: 1px solid red;
+  margin-bottom: 0;
+}
+
+.errors p {
+  color: red;
+  margin: 0 0 2rem;
+  text-align: start;
+  margin-top: 0;
+}
+
+.errors .formattedDuration {
+  color: black;
+  margin-bottom: 0;
+}
+
+.errors .inputCol {
+  padding-bottom: 0;
+}
+
+.errors .accessoryCol {
+  padding-top: 20px;
+}
