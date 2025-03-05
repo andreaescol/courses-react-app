@@ -4,7 +4,7 @@ import Registration from "./components/Authentication/Registration";
 import Header from "./components/Header/Header";
 import Courses from "./components/Courses/Courses";
 import CourseInfo from "./components/CourseInfo/CourseInfo";
-import CreateCourse from "./components/CreateCourse/CreateCourse";
+import CreateCourse from "./components/CourseForm/CourseForm";
 
 const App = () => {
   const token = localStorage.getItem("token");
