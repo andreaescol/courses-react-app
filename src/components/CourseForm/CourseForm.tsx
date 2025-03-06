@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateCreateCourse } from "../../helpers/validateCreateCourse";
 import { validateAuthor } from "../../helpers/validateAuthor";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthors } from "../../store/selectors";
+import { addAuthorAction } from "../../store/authors/actions";
+import { AppDispatch } from "../../store/store";
+import { addCourseAction } from "../../store/courses/actions";
 import Button from "../../common/Button/Button";
 import MainInfoSection from "./components/MainInfoSection/MainInfoSection";
 import AuthorsSection from "./components/AuthorsSection/AuthorsSection";
 import styles from "./createCourse.module.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { getAuthors } from "../../store/selectors";
-
 const CreateCourse = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const authors = useSelector(getAuthors);
 
   const [title, setTitle] = useState("");
@@ -86,8 +88,7 @@ const CreateCourse = () => {
     }
 
     const newAuthor = { id: crypto.randomUUID(), name: newAuthorInput };
-    dispatch({ type: "ADD_AUTHOR", payload: newAuthor });
-
+    dispatch(addAuthorAction(newAuthor));
     setAvailableAuthors([...availableAuthors, newAuthor.id]);
     setNewAuthorInput("");
   };
@@ -113,7 +114,7 @@ const CreateCourse = () => {
       authors: courseAuthors,
     };
 
-    dispatch({ type: "ADD_COURSE", payload: newCourse });
+    dispatch(addCourseAction(newCourse));
 
     setTitle("");
     setDescription("");

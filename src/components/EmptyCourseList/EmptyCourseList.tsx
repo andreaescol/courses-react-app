@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import Button from "../../common/Button/Button";
-import styles from "./emptyCourseList.module.css";
 import { getUser } from "../../store/selectors";
 import { useNavigate } from "react-router-dom";
+import Button from "../../common/Button/Button";
+import styles from "./emptyCourseList.module.css";
 
 const EmptyCourseList = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
-import Input from "../../../../common/Input/Input";
 import { getCourseDuration } from "../../../../helpers/getCourseDuration";
+import Input from "../../../../common/Input/Input";
 import styles from "../../createCourse.module.css";
 
 interface Props {

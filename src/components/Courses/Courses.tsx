@@ -1,9 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import EmptyCourseList from "../EmptyCourseList/EmptyCourseList";
-import Button from "../../common/Button/Button";
-import CourseCard from "./components/CourseCard/CourseCard";
-import styles from "./courses.module.css";
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthors, getCourses, getUser } from "../../store/selectors";
@@ -11,6 +6,10 @@ import { getCoursesThunk } from "../../store/courses/thunk";
 import { getAuthorsThunk } from "../../store/authors/thunk";
 import { AppDispatch } from "../../store/store";
 import { getUserThunk } from "../../store/user/thunk";
+import EmptyCourseList from "../EmptyCourseList/EmptyCourseList";
+import Button from "../../common/Button/Button";
+import CourseCard from "./components/CourseCard/CourseCard";
+import styles from "./courses.module.css";
 
 const Courses = () => {
   const navigate = useNavigate();

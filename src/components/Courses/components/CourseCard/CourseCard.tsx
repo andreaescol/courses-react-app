@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { getCourseDuration } from "../../../../helpers/getCourseDuration";
 import { formatCreationDate } from "../../../../helpers/formatCreationDate";
-import Button from "../../../../common/Button/Button";
-import styles from "../../courses.module.css";
 import { useSelector } from "react-redux";
 import { getUser } from "../../../../store/selectors";
 import { deleteCourseThunk } from "../../../../store/courses/thunk";
+import Button from "../../../../common/Button/Button";
+import styles from "../../courses.module.css";
 
 interface Props {
   id: string;

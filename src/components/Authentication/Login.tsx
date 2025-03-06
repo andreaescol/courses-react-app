@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { validateAuthForm } from "../../helpers/validateAuthForm";
+import { loginUser } from "../../helpers/services";
 import Button from "../../common/Button/Button";
 import Input from "../../common/Input/Input";
-import { validateAuthForm } from "../../helpers/validateAuthForm";
 import styles from "./authentication.module.css";
-import { loginUser } from "../../helpers/services";
 
 const Login = () => {
   const [formData, setFormData] = useState({
