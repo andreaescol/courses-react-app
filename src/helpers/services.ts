@@ -44,13 +44,34 @@ export const fetchAuthors = async (token: string) => {
   }
 };
 
+export const fetchUser = async (token: string) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/me`, {
+      method: "GET",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const userData = await response.json();
+    return userData.result;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
+};
+
 export const registerUser = async (formData: {
   name: string;
   email: string;
   password: string;
 }) => {
   try {
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch(`${API_BASE_URL}/register`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -85,23 +106,22 @@ export const loginUser = async (formData: {
   }
 };
 
-export const fetchUser = async (token: string) => {
+export const logoutUser = async (authToken: string) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/users/me`, {
-      method: "GET",
+    const response = await fetch(`${API_BASE_URL}/logout`, {
+      method: "DELETE",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `${authToken}`,
         "Content-Type": "application/json",
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
+    if (!response.ok) throw new Error("Logout failed");
 
-    const userData = await response.json();
-    return userData.result;
+    const token = await response.json();
+    return token.result;
   } catch (error) {
-    console.error("Error fetching user:", error);
+    console.error("Logout error:", error);
+    return null;
   }
 };

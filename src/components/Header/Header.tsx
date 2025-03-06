@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { getUser } from "../../store/selectors";
 import { removeUserAction } from "../../store/user/actions";
+import { logoutUser } from "../../helpers/services";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(removeUserAction());
+    logoutUser(user.token);
     localStorage.removeItem("token");
     navigate("/login");
   };
