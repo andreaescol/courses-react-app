@@ -5,13 +5,8 @@ import Input from "../../common/Input/Input";
 import { validateAuthForm } from "../../helpers/validateAuthForm";
 import styles from "./authentication.module.css";
 import { loginUser } from "../../helpers/services";
-import { fetchUser } from "../../helpers/services";
-
-import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -46,18 +41,6 @@ const Login = () => {
 
     if (token) {
       localStorage.setItem("token", token);
-
-      const user = await fetchUser(token);
-
-      dispatch({
-        type: "ADD_USER",
-        payload: {
-          isAuth: true,
-          name: user.name,
-          email: user.email,
-          token: token,
-        },
-      });
 
       setFormData({ email: "", password: "" });
       navigate("/courses");

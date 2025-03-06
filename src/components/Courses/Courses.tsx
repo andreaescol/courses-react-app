@@ -10,6 +10,7 @@ import { getAuthors, getCourses } from "../../store/selectors";
 import { getCoursesThunk } from "../../store/courses/thunk";
 import { getAuthorsThunk } from "../../store/authors/thunk";
 import { AppDispatch } from "../../store/store";
+import { getUserThunk } from "../../store/user/thunk";
 
 const Courses = () => {
   const navigate = useNavigate();
@@ -19,11 +20,15 @@ const Courses = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token && courses.length === 0) {
-      dispatch(getCoursesThunk());
-      dispatch(getAuthorsThunk());
+    if (token) {
+      dispatch(getUserThunk());
+
+      if (courses.length === 0) {
+        dispatch(getCoursesThunk());
+        dispatch(getAuthorsThunk());
+      }
     }
-  }, [dispatch, courses.length]);
+  }, [dispatch]);
 
   return (
     <>

@@ -4,16 +4,19 @@ import Logo from "./components/Logo/Logo";
 import Button from "../../common/Button/Button";
 
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../store/store";
 import { getUser } from "../../store/selectors";
+import { RemoveUserAction } from "../../store/user/types";
+import { removeUserAction } from "../../store/user/actions";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector(getUser);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch({ type: "REMOVE_USER" });
+    dispatch(removeUserAction());
     localStorage.removeItem("token");
     navigate("/login");
   };
@@ -26,7 +29,7 @@ const Header = () => {
       <Logo />
       {!isAuthPage && user && (
         <div>
-          <span>{user}</span>
+          <span>{user.name}</span>
           <Button
             buttonText="Logout"
             onClick={handleLogout}
