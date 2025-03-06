@@ -4,5 +4,5 @@ export const credentials = {
     REGULAR: "REGULAR",
   },
 
-  adminEmails: ["admin@gmail.com"],
+  adminEmails: ["admin@email.com"],
 };

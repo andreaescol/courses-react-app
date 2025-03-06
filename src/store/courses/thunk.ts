@@ -1,6 +1,6 @@
 import { AppDispatch } from "../store";
-import { fetchCourses } from "../../helpers/services";
-import { saveCoursesAction } from "./actions";
+import { deleteCourse, fetchCourses } from "../../helpers/services";
+import { deleteCourseAction, saveCoursesAction } from "./actions";
 
 export const getCoursesThunk = () => {
   return async (dispatch: AppDispatch) => {
@@ -15,5 +15,12 @@ export const getCoursesThunk = () => {
     } catch (error) {
       console.error("Failed to fetch courses:", error);
     }
+  };
+};
+
+export const deleteCourseThunk = (courseId: string) => {
+  return async (dispatch: AppDispatch) => {
+    await deleteCourse(courseId);
+    dispatch(deleteCourseAction(courseId));
   };
 };

@@ -80,7 +80,7 @@ export const registerUser = async (formData: {
     if (!response.ok) throw new Error("Registration failed");
     return response.ok;
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("Registration error:", error);
     return null;
   }
 };
@@ -106,22 +106,37 @@ export const loginUser = async (formData: {
   }
 };
 
-export const logoutUser = async (authToken: string) => {
+export const logoutUser = async (token: string) => {
   try {
     const response = await fetch(`${API_BASE_URL}/logout`, {
       method: "DELETE",
       headers: {
-        Authorization: `${authToken}`,
+        Authorization: `${token}`,
         "Content-Type": "application/json",
       },
     });
 
     if (!response.ok) throw new Error("Logout failed");
-
-    const token = await response.json();
-    return token.result;
+    return response.ok;
   } catch (error) {
     console.error("Logout error:", error);
+    return null;
+  }
+};
+
+export const deleteCourse = async (courseId: string) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/courses/:${courseId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) throw new Error("Course deletion failed");
+    return response.ok;
+  } catch (error) {
+    console.error("Course deletion error:", error);
     return null;
   }
 };
