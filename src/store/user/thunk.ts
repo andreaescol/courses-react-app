@@ -2,6 +2,7 @@ import { AppDispatch } from "../store";
 import { fetchUser } from "../../helpers/services";
 import { addUserAction } from "./actions";
 import { User } from "./types";
+import { credentials } from "../../helpers/credentials";
 
 export const getUserThunk = () => {
   return async (dispatch: AppDispatch) => {
@@ -13,7 +14,9 @@ export const getUserThunk = () => {
 
       const userData = await fetchUser(token);
 
-      const userRole = userData.email === "admin@email.com" ? "ADMIN" : "USER";
+      const userRole = credentials.adminEmails.includes(userData.email)
+        ? credentials.roles.ADMIN
+        : credentials.roles.REGULAR;
 
       const newUser: User = {
         isAuth: true,
