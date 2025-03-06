@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Courses from "./components/Courses/Courses";
 import CourseInfo from "./components/CourseInfo/CourseInfo";
 import CreateCourse from "./components/CourseForm/CourseForm";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -24,7 +25,12 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:courseId" element={<CourseInfo />} />
-        <Route path="/courses/add" element={<CreateCourse />} />
+        <Route
+          path="/courses/add"
+          element={
+            <PrivateRoute Component={CreateCourse} requiredRole="ADMIN" />
+          }
+        />
       </Routes>
     </>
   );

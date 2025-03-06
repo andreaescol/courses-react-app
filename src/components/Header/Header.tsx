@@ -6,7 +6,6 @@ import Button from "../../common/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { getUser } from "../../store/selectors";
-import { RemoveUserAction } from "../../store/user/types";
 import { removeUserAction } from "../../store/user/actions";
 
 const Header = () => {

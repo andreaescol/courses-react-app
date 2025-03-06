@@ -6,7 +6,7 @@ import styles from "./courses.module.css";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthors, getCourses } from "../../store/selectors";
+import { getAuthors, getCourses, getUser } from "../../store/selectors";
 import { getCoursesThunk } from "../../store/courses/thunk";
 import { getAuthorsThunk } from "../../store/authors/thunk";
 import { AppDispatch } from "../../store/store";
@@ -17,6 +17,7 @@ const Courses = () => {
   const dispatch: AppDispatch = useDispatch();
   const courses = useSelector(getCourses);
   const authors = useSelector(getAuthors);
+  const user = useSelector(getUser);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -30,6 +31,8 @@ const Courses = () => {
     }
   }, [dispatch]);
 
+  const isAdmin = user && user.role === "ADMIN";
+
   return (
     <>
       {!courses || courses.length === 0 ? (
@@ -38,11 +41,13 @@ const Courses = () => {
         <div className={styles.container}>
           <div className={styles.coursesHeader}>
             {/* <SearchBar /> */}
-            <Button
-              buttonText="Add new course "
-              onClick={() => navigate("/courses/add")}
-              className="btn"
-            />
+            {isAdmin && (
+              <Button
+                buttonText="Add new course "
+                onClick={() => navigate("/courses/add")}
+                className="btn"
+              />
+            )}
           </div>
 
           {courses.map((course) => {
