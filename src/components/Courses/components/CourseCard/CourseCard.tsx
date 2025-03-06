@@ -36,7 +36,7 @@ const CourseCard = ({
   };
 
   const handleUpdateCourse = () => {
-    navigate(`/courses/update/:${id}`);
+    navigate(`/courses/update/${id}`);
   };
 
   return (

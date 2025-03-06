@@ -154,7 +154,7 @@ export const addCourse = async (formData: {
 
 export const deleteCourse = async (courseId: string, token?: string) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/courses/:${courseId}`, {
+    const response = await fetch(`${API_BASE_URL}/courses/${courseId}`, {
       method: "DELETE",
       headers: {
         Authorization: `${token}`,
@@ -166,6 +166,37 @@ export const deleteCourse = async (courseId: string, token?: string) => {
     return response.ok;
   } catch (error) {
     console.error("Course deletion error:", error);
+    return null;
+  }
+};
+
+export const updateCourse = async (
+  courseId: string,
+  formData: {
+    title: string;
+    description: string;
+    duration: number;
+    authors: string[];
+    token?: string;
+  }
+) => {
+  const { title, description, duration, authors, token } = formData;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/courses/${courseId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, duration, authors }),
+    });
+
+    if (!response.ok) throw new Error("Update Course failed");
+    const courseData = await response.json();
+    return courseData.result;
+  } catch (error) {
+    console.error("Update Course error:", error);
     return null;
   }
 };

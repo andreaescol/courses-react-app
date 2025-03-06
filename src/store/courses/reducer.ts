@@ -3,6 +3,7 @@ import {
   SAVE_COURSES,
   ADD_COURSE,
   DELETE_COURSE,
+  UPDATE_COURSE,
   CoursesActionTypes,
 } from "./types";
 
@@ -21,6 +22,11 @@ const coursesReducer = (
 
     case DELETE_COURSE:
       return state.filter((course) => course.id !== action.payload);
+
+    case UPDATE_COURSE:
+      return state.map((course) =>
+        course.id === action.payload.id ? action.payload : course
+      );
 
     default:
       return state;

@@ -1,9 +1,15 @@
 import { AppDispatch } from "../store";
-import { addCourse, deleteCourse, fetchCourses } from "../../helpers/services";
+import {
+  addCourse,
+  deleteCourse,
+  fetchCourses,
+  updateCourse,
+} from "../../helpers/services";
 import {
   addCourseAction,
   deleteCourseAction,
   saveCoursesAction,
+  updateCourseAction,
 } from "./actions";
 import { newCourse } from "./types";
 
@@ -60,6 +66,26 @@ export const deleteCourseThunk = (courseId: string) => {
       dispatch(deleteCourseAction(courseId));
     } catch (error) {
       console.error("Failed to add course:", error);
+    }
+  };
+};
+
+export const updateCourseThunk = (courseId: string, course: newCourse) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      const updatedCourse = await updateCourse(courseId, { ...course, token });
+
+      if (updatedCourse) {
+        dispatch(updateCourseAction(updatedCourse));
+      }
+    } catch (error) {
+      console.error("Failed to update course:", error);
     }
   };
 };

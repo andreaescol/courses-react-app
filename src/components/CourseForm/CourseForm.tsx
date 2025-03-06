@@ -1,41 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateCreateCourse } from "../../helpers/validateCreateCourse";
 import { validateAuthor } from "../../helpers/validateAuthor";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthors } from "../../store/selectors";
+import { getAuthors, getCourses } from "../../store/selectors";
 import { addAuthorAction } from "../../store/authors/actions";
 import { AppDispatch } from "../../store/store";
-import { addCourseThunk } from "../../store/courses/thunk";
+import { addCourseThunk, updateCourseThunk } from "../../store/courses/thunk";
+import { useParams } from "react-router-dom";
 import Button from "../../common/Button/Button";
 import MainInfoSection from "./components/MainInfoSection/MainInfoSection";
 import AuthorsSection from "./components/AuthorsSection/AuthorsSection";
 import styles from "./courseForm.module.css";
-import { addCourseAction } from "../../store/courses/actions";
 
-const CreateCourse = () => {
+const CourseForm = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const authors = useSelector(getAuthors);
+  const courses = useSelector(getCourses);
+  const params = useParams();
+  const courseId = params.courseId;
+  const isUpdateMode = Boolean(courseId);
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [availableAuthors, setAvailableAuthors] = useState<string[]>(
-    authors.map((author) => author.id)
+  const course = isUpdateMode
+    ? courses.find((course) => course.id === courseId)
+    : null;
+
+  const [title, setTitle] = useState(course?.title || "");
+  const [description, setDescription] = useState(course?.description || "");
+  const [duration, setDuration] = useState(course?.duration?.toString() || "");
+  const [courseAuthors, setCourseAuthors] = useState<string[]>(
+    course?.authors || []
   );
-  const [courseAuthors, setCourseAuthors] = useState<string[]>([]);
+
+  const [availableAuthors, setAvailableAuthors] = useState<string[]>([]);
+
   const [newAuthorInput, setNewAuthorInput] = useState("");
-  const [duration, setDuration] = useState("");
 
   const [courseErrors, setCourseErrors] = useState({
     title: "",
     description: "",
     duration: "",
   });
-
   const [authorErrors, setAuthorErrors] = useState({
     name: "",
   });
+
+  useEffect(() => {
+    if (authors.length > 0) {
+      const allAuthors = authors.map((author) => author.id);
+      if (isUpdateMode && course) {
+        setAvailableAuthors(
+          allAuthors.filter((authorId) => !course.authors.includes(authorId))
+        );
+      } else {
+        setAvailableAuthors(authors.map((author) => author.id));
+      }
+    }
+  }, [isUpdateMode, course, authors]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -94,7 +116,7 @@ const CreateCourse = () => {
     setNewAuthorInput("");
   };
 
-  const handleCreateCourse = async () => {
+  const handleSaveCourse = async () => {
     const validationErrors = validateCreateCourse({
       title,
       description,
@@ -106,14 +128,18 @@ const CreateCourse = () => {
       return;
     }
 
-    const newCourse = {
+    const courseData = {
       title: title,
       description: description,
       duration: Number(duration),
       authors: courseAuthors,
     };
 
-    await dispatch(addCourseThunk(newCourse));
+    if (isUpdateMode && courseId) {
+      await dispatch(updateCourseThunk(courseId, courseData));
+    } else {
+      await dispatch(addCourseThunk(courseData));
+    }
 
     setTitle("");
     setDescription("");
@@ -154,9 +180,12 @@ const CreateCourse = () => {
         />
       </div>
 
-      <Button buttonText="Create Course" onClick={handleCreateCourse} />
+      <Button
+        buttonText={isUpdateMode ? "Update Course" : "Create Course"}
+        onClick={handleSaveCourse}
+      />
     </div>
   );
 };
 
-export default CreateCourse;
+export default CourseForm;

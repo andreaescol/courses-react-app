@@ -1,6 +1,7 @@
 export const SAVE_COURSES = "SAVE_COURSES";
 export const ADD_COURSE = "ADD_COURSE";
 export const DELETE_COURSE = "DELETE_COURSE";
+export const UPDATE_COURSE = "UPDATE_COURSE";
 
 export interface Course {
   authors: string[];
@@ -33,7 +34,13 @@ export interface DeleteCourseAction {
   payload: string;
 }
 
+export interface UpdateCourseAction {
+  type: typeof UPDATE_COURSE;
+  payload: Course;
+}
+
 export type CoursesActionTypes =
   | SaveCoursesAction
   | AddCourseAction
-  | DeleteCourseAction;
+  | DeleteCourseAction
+  | UpdateCourseAction;

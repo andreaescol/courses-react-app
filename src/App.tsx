@@ -4,7 +4,7 @@ import Registration from "./components/Authentication/Registration";
 import Header from "./components/Header/Header";
 import Courses from "./components/Courses/Courses";
 import CourseInfo from "./components/CourseInfo/CourseInfo";
-import CreateCourse from "./components/CourseForm/CourseForm";
+import CourseForm from "./components/CourseForm/CourseForm";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const App = () => {
@@ -27,9 +27,11 @@ const App = () => {
         <Route path="/courses/:courseId" element={<CourseInfo />} />
         <Route
           path="/courses/add"
-          element={
-            <PrivateRoute Component={CreateCourse} requiredRole="ADMIN" />
-          }
+          element={<PrivateRoute Component={CourseForm} requiredRole="ADMIN" />}
+        />
+        <Route
+          path="/courses/update/:courseId"
+          element={<PrivateRoute Component={CourseForm} requiredRole="ADMIN" />}
         />
       </Routes>
     </>
