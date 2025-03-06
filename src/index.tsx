@@ -3,7 +3,7 @@ import App from "./App";
 import "./app.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store/index";
+import store from "./store/store";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

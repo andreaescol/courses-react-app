@@ -6,6 +6,7 @@ export interface User {
   name: string;
   email: string;
   token: string;
+  role: string;
 }
 
 export interface AddUserAction {

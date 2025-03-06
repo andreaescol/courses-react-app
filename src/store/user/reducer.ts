@@ -5,6 +5,7 @@ const userInitialState: User = {
   name: "",
   email: "",
   token: "",
+  role: "",
 };
 
 const userReducer = (

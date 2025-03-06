@@ -8,17 +8,17 @@ import {
   DeleteAuthorAction,
 } from "./types";
 
-export const saveCoursesAction = (courses: Author[]): SaveAuthorsAction => ({
+export const saveAuthorsAction = (authors: Author[]): SaveAuthorsAction => ({
   type: SAVE_AUTHORS,
-  payload: courses,
+  payload: authors,
 });
 
-export const addCourseAction = (course: Author): AddAuthorAction => ({
+export const addAuthorAction = (author: Author): AddAuthorAction => ({
   type: ADD_AUTHOR,
-  payload: course,
+  payload: author,
 });
 
-export const deleteCourseAction = (courseId: string): DeleteAuthorAction => ({
+export const deleteAuthorAction = (authorId: string): DeleteAuthorAction => ({
   type: DELETE_AUTHOR,
-  payload: courseId,
+  payload: authorId,
 });

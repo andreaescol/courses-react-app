@@ -3,35 +3,27 @@ import EmptyCourseList from "../EmptyCourseList/EmptyCourseList";
 import Button from "../../common/Button/Button";
 import CourseCard from "./components/CourseCard/CourseCard";
 import styles from "./courses.module.css";
-import { fetchCourses, fetchAuthors } from "../../helpers/services";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthors, getCourses } from "../../store/selectors";
+import { getCoursesThunk } from "../../store/courses/thunk";
+import { getAuthorsThunk } from "../../store/authors/thunk";
+import { AppDispatch } from "../../store/store";
 
 const Courses = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const courses = useSelector(getCourses);
   const authors = useSelector(getAuthors);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token && courses.length === 0) {
-      loadCourses(token);
-      loadAuthors(token);
+      dispatch(getCoursesThunk());
+      dispatch(getAuthorsThunk());
     }
-  }, [dispatch]);
-
-  const loadCourses = async (token: string) => {
-    const coursesData = await fetchCourses(token);
-    dispatch({ type: "SAVE_COURSES", payload: coursesData });
-  };
-
-  const loadAuthors = async (token: string) => {
-    const authorsData = await fetchAuthors(token);
-    dispatch({ type: "SAVE_AUTHORS", payload: authorsData });
-  };
+  }, [dispatch, courses.length]);
 
   return (
     <>
