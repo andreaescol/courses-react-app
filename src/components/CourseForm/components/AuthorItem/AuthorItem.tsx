@@ -1,5 +1,5 @@
 import Button from "../../../../common/Button/Button";
-import styles from "../../createCourse.module.css";
+import styles from "../../courseForm.module.css";
 
 interface Props {
   name: string;

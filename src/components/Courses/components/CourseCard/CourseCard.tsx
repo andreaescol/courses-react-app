@@ -4,6 +4,8 @@ import { formatCreationDate } from "../../../../helpers/formatCreationDate";
 import { useSelector } from "react-redux";
 import { getUser } from "../../../../store/selectors";
 import { deleteCourseThunk } from "../../../../store/courses/thunk";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../store/store";
 import Button from "../../../../common/Button/Button";
 import styles from "../../courses.module.css";
 
@@ -26,9 +28,10 @@ const CourseCard = ({
 }: Props) => {
   const navigate = useNavigate();
   const isAdmin = useSelector(getUser).role === "ADMIN";
+  const dispatch: AppDispatch = useDispatch();
 
   const handleDeleteCourse = () => {
-    deleteCourseThunk(id);
+    dispatch(deleteCourseThunk(id));
     navigate("/courses");
   };
 

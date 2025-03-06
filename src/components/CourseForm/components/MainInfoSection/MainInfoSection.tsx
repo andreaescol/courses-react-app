@@ -1,6 +1,6 @@
 import { getCourseDuration } from "../../../../helpers/getCourseDuration";
 import Input from "../../../../common/Input/Input";
-import styles from "../../createCourse.module.css";
+import styles from "../../courseForm.module.css";
 
 interface Props {
   title: string;

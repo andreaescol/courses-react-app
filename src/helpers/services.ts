@@ -124,11 +124,40 @@ export const logoutUser = async (token: string) => {
   }
 };
 
-export const deleteCourse = async (courseId: string) => {
+export const addCourse = async (formData: {
+  title: string;
+  description: string;
+  duration: number;
+  authors: string[];
+  token?: string;
+}) => {
+  const { title, description, duration, authors, token } = formData;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/courses/add`, {
+      method: "POST",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, duration, authors }),
+    });
+
+    if (!response.ok) throw new Error("Add Course failed");
+    const courseData = await response.json();
+    return courseData.result;
+  } catch (error) {
+    console.error("Add Course error:", error);
+    return null;
+  }
+};
+
+export const deleteCourse = async (courseId: string, token?: string) => {
   try {
     const response = await fetch(`${API_BASE_URL}/courses/:${courseId}`, {
       method: "DELETE",
       headers: {
+        Authorization: `${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -137,6 +166,28 @@ export const deleteCourse = async (courseId: string) => {
     return response.ok;
   } catch (error) {
     console.error("Course deletion error:", error);
+    return null;
+  }
+};
+
+export const addAuthor = async (formData: { name: string; token?: string }) => {
+  const { name, token } = formData;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/authors/add`, {
+      method: "POST",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name }),
+    });
+
+    if (!response.ok) throw new Error("Add Author failed");
+    const authorData = await response.json();
+    return authorData.result;
+  } catch (error) {
+    console.error("Add Author error:", error);
     return null;
   }
 };

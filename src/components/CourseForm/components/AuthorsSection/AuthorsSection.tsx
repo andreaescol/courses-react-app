@@ -1,7 +1,8 @@
 import Input from "../../../../common/Input/Input";
 import Button from "../../../../common/Button/Button";
 import AuthorItem from "../AuthorItem/AuthorItem";
-import styles from "../../createCourse.module.css";
+import styles from "../../courseForm.module.css";
+
 interface Props {
   newAuthorInput: string;
   handleAuthorChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

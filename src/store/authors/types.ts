@@ -7,6 +7,10 @@ export interface Author {
   name: string;
 }
 
+export interface newAuthor {
+  name: string;
+}
+
 export interface SaveAuthorsAction {
   type: typeof SAVE_AUTHORS;
   payload: Author[];

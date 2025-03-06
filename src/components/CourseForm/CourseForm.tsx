@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuthors } from "../../store/selectors";
 import { addAuthorAction } from "../../store/authors/actions";
 import { AppDispatch } from "../../store/store";
-import { addCourseAction } from "../../store/courses/actions";
+import { addCourseThunk } from "../../store/courses/thunk";
 import Button from "../../common/Button/Button";
 import MainInfoSection from "./components/MainInfoSection/MainInfoSection";
 import AuthorsSection from "./components/AuthorsSection/AuthorsSection";
-import styles from "./createCourse.module.css";
+import styles from "./courseForm.module.css";
+import { addCourseAction } from "../../store/courses/actions";
 
 const CreateCourse = () => {
   const navigate = useNavigate();
@@ -106,15 +107,13 @@ const CreateCourse = () => {
     }
 
     const newCourse = {
-      id: crypto.randomUUID(),
       title: title,
       description: description,
-      creationDate: new Date().toLocaleDateString("en-GB"),
       duration: Number(duration),
       authors: courseAuthors,
     };
 
-    dispatch(addCourseAction(newCourse));
+    await dispatch(addCourseThunk(newCourse));
 
     setTitle("");
     setDescription("");
@@ -155,7 +154,6 @@ const CreateCourse = () => {
         />
       </div>
 
-      {/* <Button buttonText="Cancel" onClick={() => {}} /> */}
       <Button buttonText="Create Course" onClick={handleCreateCourse} />
     </div>
   );

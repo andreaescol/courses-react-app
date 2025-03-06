@@ -3,10 +3,17 @@ export const ADD_COURSE = "ADD_COURSE";
 export const DELETE_COURSE = "DELETE_COURSE";
 
 export interface Course {
+  authors: string[];
+  creationDate: string;
+  description: string;
+  duration: number;
   id: string;
   title: string;
+}
+
+export interface newCourse {
+  title: string;
   description: string;
-  creationDate: string;
   duration: number;
   authors: string[];
 }
